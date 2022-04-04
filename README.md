@@ -3,7 +3,7 @@ A simple web application for managing a home library.
 
 ## Technologies
 - frontend layer: React
-- fackend layer: Django + DjangoRestFramework
+- backend layer: Django + DjangoRestFramework
 - database layer: PostgreSQL
 
 ## Application functionalities
