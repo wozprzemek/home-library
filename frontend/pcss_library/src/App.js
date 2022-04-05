@@ -38,14 +38,10 @@ function App() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/books/', {
-      headers: {
-        'Authorization': 'Basic YWRtaW46YWRtaW4='
-      }
-    })
+    fetch('http://127.0.0.1:8000/books/')
     .then(response => response.json())
-    .then(data => setBooks(data.results), console.log(books));
-  });  
+    .then(data => setBooks(data.results));
+  }, []);  
 
   const addBook = () => {
     // add a book
@@ -62,7 +58,7 @@ function App() {
       <Header highlightColor='#9D6381' onClick={addBook}/>
       <div id="content">
         {books.map((book) => (
-           <BookCard key={book.id} width={cardWidth} title={book.title} author={book.author} date={book.date} bookmarkColor={book.color}></BookCard>
+           <BookCard key={book.title} width={cardWidth} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.date).getFullYear()} bookmarkColor={book.color}></BookCard>
         ))}
       </div>
     </div>
