@@ -25,7 +25,8 @@ from library.main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include(router.urls)),
-    path('authors/', views.author_list),
+    path('authors/', views.get_all_authors),
+    path('authors/add/', views.add_author),
     path('authors/<int:pk>/', views.author_detail),
     
     path('books/', views.book_list),
