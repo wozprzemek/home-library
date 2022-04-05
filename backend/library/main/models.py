@@ -8,3 +8,4 @@ class Book(models.Model):
     title = models.TextField()
     author = models.ForeignKey("Author", on_delete=models.PROTECT, null=False)
     date = models.DateField()
+    description = models.TextField()

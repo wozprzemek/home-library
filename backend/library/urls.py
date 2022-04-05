@@ -18,12 +18,18 @@ from django.urls import include, path
 from rest_framework import routers
 from library.main import views
 
-router = routers.DefaultRouter()
-router.register(r'authors', views.AuthorViewSet)
-router.register(r'books', views.BookViewSet)
+# router = routers.DefaultRouter()
+# router.register(r'authors', views.author_list)
+# router.register(r'books', views.book_list)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
+    path('authors/', views.author_list),
+    path('authors/<int:pk>/', views.author_detail),
+    
+    path('books/', views.book_list),
+    path('books/<int:pk>/', views.book_detail),
+
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

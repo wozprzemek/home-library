@@ -40,7 +40,7 @@ function App() {
   useEffect(() => {
     fetch('http://127.0.0.1:8000/books/')
     .then(response => response.json())
-    .then(data => setBooks(data.results));
+    .then(data => setBooks(data));
   }, []);  
 
   const addBook = () => {
@@ -48,7 +48,10 @@ function App() {
     setBooks([...books, {
       id: books.length,
       title: "Book " + books.length,
-      author: "Author2",
+      author: {
+        first_name: 'New',
+        last_name: 'Author'
+      },
       date: "2018",
       color: bookmarkPalette[~~(Math.random() * bookmarkPalette.length)],
     }]);
