@@ -44,7 +44,7 @@ function App() {
       }
     })
     .then(response => response.json())
-    .then(data => console.log(data.results));
+    .then(data => setBooks(data.results), console.log(books));
   });  
 
   const addBook = () => {
