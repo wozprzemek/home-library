@@ -13,23 +13,7 @@ from rest_framework.parsers import JSONParser
 from library.main.serializers import AuthorSerializer, BookSerializer
 from library.main.models import Author, Book
 
-# class AuthorViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows authors to be viewed or edited.
-#     """
-#     queryset = Author.objects.all()
-#     serializer_class = AuthorSerializer
-#     # permission_classes = [permissions.IsAuthenticated]
-
-
-# class BookViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows books to be viewed or edited.
-#     """
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     # permission_classes = [permissions.IsAuthenticated]
-
+# AUTHORS
 @api_view(['GET'])
 def get_all_authors(request):
     """
@@ -80,5 +64,59 @@ def delete_author(request, pk):
     """
     author = Author.objects.get(id=pk)
     author.delete()
+    
+    return Response(status=status.HTTP_200_OK)
+
+
+# BOOKS 
+@api_view(['GET'])
+def get_all_books(request):
+    """
+    Returns the list of all books
+    """
+    books = Book.objects.all()
+    serializer = BookSerializer(books, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_book(request, pk):
+    """
+    Returns the details of a selected book
+    """
+    try:
+        book = Book.objects.get(pk=pk)
+        serializer = BookSerializer(book)
+        return Response(serializer.data)
+    except Book.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['POST'])
+def add_book(request):
+    """
+    Adds an author
+    """
+    serializer = BookSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def edit_book(request, pk):
+    """
+    Updates a selected book
+    """
+    book = Book.objects.get(id=pk)
+    serializer = BookSerializer(instance=book, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+def delete_book(request, pk):
+    """
+    Delete a selected book
+    """
+    book = Book.objects.get(id=pk)
+    book.delete()
     
     return Response(status=status.HTTP_200_OK)
