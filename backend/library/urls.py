@@ -27,10 +27,10 @@ urlpatterns = [
     # path('', include(router.urls)),
     path('authors/', views.get_all_authors),
     path('authors/add/', views.add_author),
-    path('authors/<int:pk>/', views.author_detail),
+    path('authors/<int:pk>/', views.get_author),
+    path('authors/edit/<int:pk>/', views.edit_author),
+    path('authors/delete/<int:pk>/', views.delete_author),
     
-    path('books/', views.book_list),
-    path('books/<int:pk>/', views.book_detail),
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
