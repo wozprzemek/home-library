@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import './App.css';
 import BookCard from './components/BookCard';
+import FormWindow from './components/FormWindow';
 import Header from './components/Header'
 
 // // bookmark color palette
@@ -48,6 +49,7 @@ function App() {
   }, []);  
 
   const addBook = () => {
+
     // Add a book
     let book = {
       id: books.length,
@@ -80,7 +82,12 @@ function App() {
     });
   };
 
+  const showFormWindow = () => {
+    setFormWindow(!formWindow)
+  }
+
   const addAuthor = () => {
+    showFormWindow()
     // Add an author
     let author = {
         first_name: "new",
@@ -100,9 +107,12 @@ function App() {
     .then(response => response.json())
 
   };
-  
+
+  const [formWindow, setFormWindow] = useState(false);
   return (
     <div id="wrapper">
+      {formWindow == true ? <div id='overlay' onClick={showFormWindow}></div> : null}
+      {formWindow == true ? <FormWindow></FormWindow> : null}
       <Header highlightColor='#9D6381' onClick={addAuthor}/>
       <div id="content">
         {books.map((book) => (
