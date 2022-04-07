@@ -34,17 +34,19 @@ function App() {
     return width;
   };
 
-  let cardWidth = calculateCardWidth(windowWidth);
  
   // book data
   const [books, setBooks] = useState([]);
 
+  let cardWidth = calculateCardWidth(windowWidth);
   useEffect(() => {
     fetch('http://127.0.0.1:8000/books/')
     .then(response => response.json())
     .then(data => {
       setBooks(data);
       console.log(data)
+      cardWidth = calculateCardWidth(windowWidth);
+      console.log('ON MOUNT: ' + cardWidth)
     });
   }, []);  
 
@@ -67,7 +69,12 @@ function App() {
         book.title = object.title
         book.release_date = object.release_date
         book.author = author
-        book.description = object.description
+        if (object.description.length == 0){
+          book.description = 'No description'
+        }
+        else{
+          book.description = object.description
+        }
 
         console.log(JSON.stringify(book))
         fetch("http://127.0.0.1:8000/books/add/", {
@@ -89,19 +96,74 @@ function App() {
               console.log(data)
           });
       });
+      showFormWindow()
     }
     else{
         alert('Please fill all required (*) fields.')
     }
-    showFormWindow()
   };
 
   const showFormWindow = () => {
     setFormWindow(!formWindow)
   }
 
-  const editBook = (pk) => {
-    console.log(pk)
+  const editBook = (book_obj) => {
+    console.log(book_obj)
+    showFormWindow()
+
+    // fill initial input values
+    console.log(book_obj.title)
+    console.log(document.querySelector("#title"))
+    // document.querySelector("#form").querySelector("#title").value = book_obj.title
+
+    // let formData = new FormData(document.querySelector("#form"))
+    // let object = {}
+    // let book = {}
+    // let author = {}
+    // formData.forEach((value, key) => object[key] = value)
+    // if (object.title.length !== 0 &&    
+    //     object.release_date.length !== 0 &&
+    //     object.first_name.length !== 0 &&
+    //     object.last_name.length !== 0
+    // ){
+    //     author.first_name = object.first_name
+    //     author.last_name = object.last_name
+
+    //     book.title = object.title
+    //     book.release_date = object.release_date
+    //     book.author = author
+    //     if (object.description.length == 0){
+    //       book.description = 'No description'
+    //     }
+    //     else{
+    //       book.description = object.description
+    //     }
+
+    //     console.log(JSON.stringify(book))
+    //     fetch("http://127.0.0.1:8000/books/add/", {
+    //         method: "POST",
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify(book)
+    //     }).then(data => {
+    //       console.log(data)
+    //       fetch('http://127.0.0.1:8000/books/', {
+    //         method: 'GET',
+    //         headers: {
+    //           'Accept': 'application/json',
+    //           'Content-Type': 'application/json'
+    //         }
+    //       })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //           setBooks(data);
+    //           console.log(data)
+    //       });
+    //   });
+    //   showFormWindow()
+    // }
+    // else{
+    //     alert('Please fill all required (*) fields.')
+    // }
   };
 
   const deleteBook = (pk) => {
@@ -134,12 +196,12 @@ function App() {
   return (
     <>
       {formWindow == true ? <div id='overlay' onClick={showFormWindow}></div> : null}
-      {formWindow == true ? <FormWindow onClick={showFormWindow} addBook={addBook}></FormWindow> : null}
+      {formWindow == true ? <FormWindow onClick={showFormWindow} addBook={addBook} editBook={editBook}></FormWindow> : null}
       <div id="wrapper">
         <Header highlightColor='#9D6381' onClick={showFormWindow}/>
         <div id="content">
           {books.map((book) => (
-            <BookCard editBook={() => editBook(book.id)} deleteBook={() => deleteBook(book.id)} key={book.id} pk={book.id} width={cardWidth} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.release_date).getFullYear()} description={book.description} bookmarkColor={book.color}></BookCard>
+            <BookCard editBook={() => editBook(book)} deleteBook={() => deleteBook(book.id)} key={book.id} pk={book.id} width={cardWidth} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.release_date).getFullYear()} description={book.description} bookmarkColor={book.color}></BookCard>
           ))}
         </div>
       </div>

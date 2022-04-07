@@ -6,22 +6,26 @@
 
 label {
     font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 200;
 }
 
 input, textarea {
     width: 400px;
     height: 30px;
-    margin-top: 2px;
+    margin-top: 5px;
     margin-bottom: 20px;
     padding-left: 5px;
     border: 1px solid rgb(148, 148, 148);
+    border-radius: 4px;
+    font-size: 12px;
 }
 
 textarea {
     padding-top: 5px;
     resize: none;
     width: 400px;
-    height: 200px;
+    height: 140px;
 }
 
 input:focus {
@@ -37,7 +41,7 @@ textarea:focus {
 #form-window-container {
     width: 610px;
     min-height: 450px;
-    height: 80vh;
+    height: 75vh;
     max-height: 720px;
     background-color: white;
     display: flex;
@@ -49,16 +53,20 @@ textarea:focus {
     font-family: sans-serif;
     justify-content: space-between;
     align-items: center;
-    padding-top: 60px;
+    padding-top: 40px;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 5px;
+    position: fixed;
 }
 
 #form-window-title {
-    font-size: 20px;
-    font-weight: 200;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
 }
 
 #button-container {
-    width: 300px;
+    width: 240px;
     height: 50px;
     display: flex;
     align-self: flex-end;

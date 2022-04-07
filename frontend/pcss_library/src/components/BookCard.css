@@ -59,6 +59,9 @@ hr{
 #bookcard-description {
     grid-area: description;
     text-align: justify;
+    width: 100%;
+    word-wrap: break-word;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #bookcard-bookmark {

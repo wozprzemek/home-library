@@ -23,7 +23,7 @@ const BookCard = ({editBook, deleteBook, pk, width, title, author, date, bookmar
                 <hr></hr>
             </div>
             <div id="bookcard-description">
-            {description}
+              {description}
             </div>
         </div>
     </div>
