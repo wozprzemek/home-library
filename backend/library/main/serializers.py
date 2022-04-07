@@ -12,4 +12,12 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
+        # depth = 1
         fields = ('__all__')
+
+    def create(self, validated_data):
+        author_data = validated_data.pop('author')
+        author = Author.objects.create(**author_data)
+        book = Book.objects.create(author=author, **validated_data)
+        return book
+

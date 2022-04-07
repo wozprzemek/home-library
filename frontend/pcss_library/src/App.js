@@ -49,77 +49,101 @@ function App() {
   }, []);  
 
   const addBook = () => {
-
     // Add a book
-    let book = {
-      id: books.length,
-      title: "Book " + books.length,
-      author: {
-        first_name: "Krzysztof",
-        id: 1,
-        last_name: "Bucholc"
-      },
-      date: "2018-01-01",
-      description: "Description"
-    }
+    
+    let formData = new FormData(document.querySelector("#form"))
+    let object = {}
+    let book = {}
+    let author = {}
+    formData.forEach((value, key) => object[key] = value)
+    if (object.title.length !== 0 &&    
+        object.release_date.length !== 0 &&
+        object.first_name.length !== 0 &&
+        object.last_name.length !== 0
+    ){
+        author.first_name = object.first_name
+        author.last_name = object.last_name
 
-    console.log(book)
-    console.log(JSON.stringify(book))
-    fetch('http://127.0.0.1:8000/books/add/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(book)
-    })
-    .then(response => response.json())
-    .then(data => {
-      setBooks(data);
-      fetch('http://127.0.0.1:8000/books/')
-      .then(response => response.json())
-      .then(data => setBooks(data));
-    });
+        book.title = object.title
+        book.release_date = object.release_date
+        book.author = author
+        book.description = object.description
+
+        console.log(JSON.stringify(book))
+        fetch("http://127.0.0.1:8000/books/add/", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(book)
+        }).then(data => {
+          console.log(data)
+          fetch('http://127.0.0.1:8000/books/', {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          })
+            .then(response => response.json())
+            .then(data => {
+              setBooks(data);
+              console.log(data)
+          });
+      });
+    }
+    else{
+        alert('Please fill all required (*) fields.')
+    }
+    showFormWindow()
   };
 
   const showFormWindow = () => {
     setFormWindow(!formWindow)
   }
 
-  const addAuthor = () => {
-    showFormWindow()
-    // Add an author
-    let author = {
-        first_name: "new",
-        last_name: "new"
-    }
+  const editBook = (pk) => {
+    console.log(pk)
+  };
 
-    console.log(author)
-    console.log(JSON.stringify(author))
-    fetch('http://127.0.0.1:8000/authors/add/', {
-      method: 'POST',
+  const deleteBook = (pk) => {
+    console.log(pk)
+    fetch('http://127.0.0.1:8000/books/delete/' + pk, {
+      method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(author)
+      }
     })
-    .then(response => response.json())
-
+      .then(data => {
+        console.log(data)
+        fetch('http://127.0.0.1:8000/books/', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            setBooks(data);
+            console.log(data)
+        });
+    });
   };
 
   const [formWindow, setFormWindow] = useState(false);
   return (
-    <div id="wrapper">
+    <>
       {formWindow == true ? <div id='overlay' onClick={showFormWindow}></div> : null}
-      {formWindow == true ? <FormWindow></FormWindow> : null}
-      <Header highlightColor='#9D6381' onClick={addAuthor}/>
-      <div id="content">
-        {books.map((book) => (
-           <BookCard key={book.title} width={cardWidth} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.release_date).getFullYear()} bookmarkColor={book.color}></BookCard>
-        ))}
+      {formWindow == true ? <FormWindow onClick={showFormWindow} addBook={addBook}></FormWindow> : null}
+      <div id="wrapper">
+        <Header highlightColor='#9D6381' onClick={showFormWindow}/>
+        <div id="content">
+          {books.map((book) => (
+            <BookCard editBook={() => editBook(book.id)} deleteBook={() => deleteBook(book.id)} key={book.id} pk={book.id} width={cardWidth} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.release_date).getFullYear()} description={book.description} bookmarkColor={book.color}></BookCard>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

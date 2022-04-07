@@ -98,6 +98,8 @@ def add_book(request):
     serializer = BookSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
+    else:
+        print("bad")
     return Response(serializer.data)
 
 @api_view(['PUT'])
