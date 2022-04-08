@@ -5,8 +5,8 @@ import './FormWindow.css'
 const FormWindow = (props) => {
 
     return (
-    <div id="form-window-container">
-        <div id="form-window-title">Add a new entry</div>
+    <div id="form-window-container" style={{display:props.display}}>
+        <div id="form-window-title">{props.title}</div>
         <form id="form">
             <label htmlFor="title">Title*</label>
             <br/>
@@ -30,12 +30,12 @@ const FormWindow = (props) => {
 
             <label htmlFor="description">Description</label>
             <br/>
-            <textarea maxlength="400" id="description" rows="5" cols="60" name="description" placeholder='Enter the description'></textarea>
+            <textarea maxLength="400" id="description" rows="5" cols="60" name="description" placeholder='Enter the description'></textarea>
             <br/>
         </form>
         <div id="button-container">
             <Button text="Cancel" width="100px" height="36px" color="#1F271B" backgroundColor="white" border="1px #1F271B solid" onClick={props.onClick}></Button>
-            <Button text="Add" width="100px" height="36px" backgroundColor="#1F271B" onClick={props.addBook}></Button>
+            <Button text="Save" width="100px" height="36px" backgroundColor="#1F271B" onClick={props.submit}></Button>
         </div>
     </div>
     )
