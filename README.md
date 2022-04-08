@@ -11,3 +11,7 @@ A simple web application for managing a home library.
 - ability to delete and add new books
 - ability to view and edit books
 - filtering books by title fragment
+
+## Running the application
+
+TODO - Docker
