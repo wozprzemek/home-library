@@ -209,10 +209,10 @@ function App() {
   return (
     <>
       {addWindow == true ? <div id='overlay' onClick={toggleAddWindow}></div> : null}
-      {addWindow == true ? <FormWindow display="flex" title="Add new entry" onClick={toggleAddWindow} submit={addBook}></FormWindow> : null}
+      {addWindow == true ? <FormWindow display="grid" title="Add new entry" onClick={toggleAddWindow} submit={addBook}></FormWindow> : null}
 
       {editWindow == true ? <div id='overlay' onClick={() => toggleEditWindow(null)}></div> : null}
-      {editWindow == true ? <FormWindow display="flex" title="Edit entry" onClick={() => toggleEditWindow(null)} submit={editBook}></FormWindow> : 
+      {editWindow == true ? <FormWindow display="grid" title="Edit entry" onClick={() => toggleEditWindow(null)} submit={editBook}></FormWindow> : 
       <FormWindow display="none" onClick={() => toggleEditWindow(null)} addBook={addBook} editBook={editBook}></FormWindow>}
       <div id="wrapper">
         <Header highlightColor='#9D6381' onClick={toggleAddWindow}/>

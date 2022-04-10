@@ -5,18 +5,19 @@
 }
 
 label {
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 200;
 }
 
 input, textarea {
-    width: 400px;
+    width: 300px;
     height: 30px;
     margin-top: 5px;
     margin-bottom: 20px;
+    margin-right: 20px;
     padding-left: 5px;
-    border: 1px solid rgb(148, 148, 148);
+    border: 1px solid rgb(184, 184, 184);
     border-radius: 4px;
     font-size: 12px;
 }
@@ -24,8 +25,16 @@ input, textarea {
 textarea {
     padding-top: 5px;
     resize: none;
-    width: 400px;
     height: 140px;
+}
+
+div#description {
+    width: 620px;
+    max-width: 95%;
+}
+
+textarea#description {
+    width: 100%;
 }
 
 input:focus {
@@ -39,13 +48,15 @@ textarea:focus {
 }
 
 #form-window-container {
-    width: 610px;
-    min-height: 450px;
-    height: 75vh;
-    max-height: 720px;
+    width: 800px;
+    max-width: 80vw;
+    height: 80vh;
     background-color: white;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 80px calc(80vh - 160px) 80px;
+    grid-template-areas: "topbar"
+                        "content"
+                        "buttons";
     position: absolute;
     left: 50%;
     top: 50%;
@@ -53,23 +64,53 @@ textarea:focus {
     font-family: sans-serif;
     justify-content: space-between;
     align-items: center;
-    padding-top: 40px;
     font-family: 'Open Sans', sans-serif;
     border-radius: 5px;
     position: fixed;
 }
 
+#form-container {
+    height: calc(80vh - 160px);
+    grid-area: content;
+    overflow: auto;
+}
+
+#form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    padding-left: 20px;
+    
+}
+
+#form-window-titlebar {
+    height: 80px;
+    grid-area: topbar;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+}
+
 #form-window-title {
     font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+#button-bar {
+    grid-area: buttons;
+    display: flex;
+    justify-content: end;
+    padding: 0px 20px;
+    border-top: 1px solid rgb(207, 207, 207);
+    align-items: center;
+    height: 80px;
 }
 
 #button-container {
-    width: 240px;
+    width: 200px;
     height: 50px;
     display: flex;
-    align-self: flex-end;
+    align-self: center;
     justify-content: space-evenly;
-    justify-self: flex-end;
+    align-items: center;
 }
