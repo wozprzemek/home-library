@@ -14,6 +14,7 @@ hr{
     font-family: 'Playfair Display';
     font-size: 34px;
     font-weight: 700;
+    width: 100%;
 }
 
 #bookcard-author {
@@ -21,37 +22,64 @@ hr{
     font-size: 22px;
     color:#9D6381;
     font-weight: 400;
+    width: 100%;
 }
 
 #bookcard-date {
     font-family: 'Playfair Display';
     font-size: 18px;
     font-weight: 400;
+    width: 100%;
 }
 
-#bookcard-container {
-    min-width: 550px;
-    height: 340px;
-    display: grid;
-    grid-template-columns: 60px 1fr 40px;
-    grid-template-areas: "bookmark content options";
-    border-radius: 6px;
-    box-shadow: 0px 0px 4px rgb(172, 172, 172);
-    margin: 12.5px;
+/* desktop */
+@media (min-width: 576px){
+    #bookcard-container {
+        min-width: 550px;
+        min-height: 340px;
+        display: grid;
+        grid-template-columns: 60px 1fr 40px;
+        grid-template-areas: "bookmark content options";
+        border-radius: 6px;
+        box-shadow: 0px 0px 4px rgb(172, 172, 172);
+        margin: 12.5px;
+        flex-grow: 1;
+    }
+    
 }
+
+/* mobile */
+@media (max-width: 576px){
+    #bookcard-container {
+        width: 90vw;
+        min-height: 340px;
+        display: grid;
+        grid-template-columns: 20px minmax(0, 1fr) 40px;
+        grid-template-areas: "bookmark content options";
+        border-radius: 6px;
+        box-shadow: 0px 0px 4px rgb(172, 172, 172);
+        margin: 12.5px;
+        flex-wrap: wrap;
+    }
+}
+
 
 #bookcard-content {
+    grid-area: content;
     display: grid;
     grid-template-areas: "info"
                          "description";
     grid-template-rows: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-gap: 10px;
     padding: 20px;
+    overflow-wrap: break-word;
 }
 
 #bookcard-content-info {
     grid-area: info;
     display: flex;
+    width: 100%;
     flex-direction: column;
     justify-content: space-around;
 }
@@ -60,13 +88,13 @@ hr{
     grid-area: description;
     text-align: justify;
     width: 100%;
-    word-wrap: break-word;
     font-family: 'Open Sans', sans-serif;
 }
 
 #bookcard-bookmark {
     grid-area: bookmark;
     background-color: #9D6381;
+    max-height: 100%;
 }
 
 #options-container {
