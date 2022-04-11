@@ -1,12 +1,13 @@
 import './BookCard.css'
 import edit_icon from '../assets/edit.png'
 import delete_icon from '../assets/delete.png'
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const BookCard = ({height, editBook, deleteBook, pk, width, title, author, date, bookmarkColor, description}) => {
-
+  let params = useParams();
   return (
-    <Link to={`/books/${pk}`} key={pk}>
+    
       <div id="bookcard-container" style={{width: width, height: height}}>
         <div id="options-container">
           <div>
@@ -29,7 +30,6 @@ const BookCard = ({height, editBook, deleteBook, pk, width, title, author, date,
               </div>
           </div>
       </div>
-    </Link>
   )
 }
 

@@ -3,6 +3,7 @@ import './App.css';
 import BookCard from './components/BookCard';
 import FormWindow from './components/FormWindow';
 import Header from './components/Header'
+import { Link, Outlet } from "react-router-dom";
 
 // // bookmark color palette
 const bookmarkPalette = ['#312F2F','#104547','#7798AB', '#9D6381', '#E2C044', '#0F110C','#BFEDC1'];
@@ -197,10 +198,13 @@ function App() {
         <Header highlightColor='#9D6381' title={title} onClick={toggleAddWindow} onChange={handleChange.bind(this)}/>
         <div id="content">
           {books.filter(book => book.title.toLowerCase().includes(title.toLowerCase())).map((book) => (
-            <BookCard editBook={() => toggleEditWindow(book)} deleteBook={() => deleteBook(book.id)} key={book.id} pk={book.id} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.release_date).getFullYear()} description={book.description} bookmarkColor={book.color}></BookCard>
+            <Link to={`/books/${book.id}`} key={book.id}>
+              <BookCard editBook={() => toggleEditWindow(book)} deleteBook={() => deleteBook(book.id)} key={book.id} pk={book.id} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.release_date).getFullYear()} description={book.description} bookmarkColor={book.color}></BookCard>
+            </Link> 
           ))}
         </div>
       </div>
+      <Outlet />
     </>
   );
 }
