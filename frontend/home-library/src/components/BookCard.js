@@ -2,10 +2,10 @@ import './BookCard.css'
 import edit_icon from '../assets/edit.png'
 import delete_icon from '../assets/delete.png'
 
-const BookCard = ({editBook, deleteBook, pk, width, title, author, date, bookmarkColor, description}) => {
+const BookCard = ({height, editBook, deleteBook, pk, width, title, author, date, bookmarkColor, description}) => {
 
   return (
-    <div id="bookcard-container" style={{width: width}}>
+    <div id="bookcard-container" style={{width: width, height: height}}>
       <div id="options-container">
         <div>
           <img src={edit_icon} onClick={editBook} alt="edit_icon" id="icon" />
