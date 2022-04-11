@@ -176,6 +176,14 @@ function App() {
   const [addWindow, setAddWindow] = useState(false);
   const [editWindow, setEditWindow] = useState(false);
   const [selectedBook, setSelectedBook] = useState({});
+  
+  // title state for book search
+  const [title, setTitle] = useState('');
+  
+  const handleChange = (e) => {
+    setTitle(e.target.value)
+  }
+
 
   return (
     <>
@@ -186,9 +194,9 @@ function App() {
       {editWindow == true ? <FormWindow display="grid" title="Edit entry" onClick={() => toggleEditWindow(null)} submit={editBook}></FormWindow> : 
       <FormWindow display="none" onClick={() => toggleEditWindow(null)} addBook={addBook} editBook={editBook}></FormWindow>}
       <div id="wrapper">
-        <Header highlightColor='#9D6381' onClick={toggleAddWindow}/>
+        <Header highlightColor='#9D6381' title={title} onClick={toggleAddWindow} onChange={handleChange.bind(this)}/>
         <div id="content">
-          {books.map((book) => (
+          {books.filter(book => book.title.toLowerCase().includes(title.toLowerCase())).map((book) => (
             <BookCard editBook={() => toggleEditWindow(book)} deleteBook={() => deleteBook(book.id)} key={book.id} pk={book.id} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.release_date).getFullYear()} description={book.description} bookmarkColor={book.color}></BookCard>
           ))}
         </div>
