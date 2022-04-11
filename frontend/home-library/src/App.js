@@ -9,44 +9,15 @@ const bookmarkPalette = ['#312F2F','#104547','#7798AB', '#9D6381', '#E2C044', '#
 // let randomColor = bookmarkPalette[~~(Math.random() * bookmarkPalette.length)];
 
 function App() {
-  // get window size dynamically
-  const useWindowSize = () => {
-    const [size, setSize] = useState([0, 0]);
-    useLayoutEffect(() => {
-      function updateSize() {
-        setSize([document.body.clientWidth, document.body.clientHeight]);
-      }
-      window.addEventListener('resize', updateSize);
-      updateSize();
-      return () => window.removeEventListener('resize', updateSize);
-    }, []);
-    return size;
-  }
-  
-  // get current window size
-  const [windowWidth, windowHeight] = useWindowSize();
-
-  // calculate card width for current window size
-  const calculateCardWidth = (windowWidth) => {
-    let n = ~~((windowWidth - 15) / 575);
-    let width = (windowWidth - 25 * n - 15) / n;
-    console.log(windowWidth,n,width)
-    return width;
-  };
-
  
   // book data
   const [books, setBooks] = useState([]);
 
-  let cardWidth = calculateCardWidth(windowWidth);
   useEffect(() => {
     fetch('http://127.0.0.1:8000/books/')
     .then(response => response.json())
     .then(data => {
       setBooks(data);
-      console.log(data)
-      cardWidth = calculateCardWidth(windowWidth);
-      console.log('ON MOUNT: ' + cardWidth)
     });
   }, []);  
 
