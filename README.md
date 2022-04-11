@@ -1,5 +1,5 @@
 # home-library
-A simple web application for managing a home library.
+A simple web application for managing a home book library.
 
 ## Technologies
 - frontend layer: React
@@ -14,7 +14,7 @@ A simple web application for managing a home library.
 
 ## Running the application
 
-1. Running the backend
+### Running the backend
 
 Navigate to the /backend/ directory and use the following command to run the backend and connect to the database:
 
@@ -22,7 +22,7 @@ Navigate to the /backend/ directory and use the following command to run the bac
 docker-compose up --build
 ```
 
-2. Running the frontend
+### Running the frontend
 
 Navigate to the /frontend/home-library/ directory and use the following commands to run the frontend:
 
