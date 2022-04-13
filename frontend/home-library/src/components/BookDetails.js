@@ -1,36 +1,51 @@
-import './BookCard.css'
-import edit_icon from '../assets/edit.png'
-import delete_icon from '../assets/delete.png'
-import { Link, Outlet } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom';
+import './BookDetails.css'
 
-const BookCard = ({height, editBook, deleteBook, pk, width, title, author, date, bookmarkColor, description}) => {
-  let params = useParams();
+const BookDetails = (props) => {
+
+  // book id
+  let { bookId } = useParams();
+  console.log('params: ' + bookId)
+
+  // book data
+  const [book, setBook] = useState({
+    // "title": null,
+    // "author": {
+    //   "first_name": null,
+    //   "last_name": null,
+    // },
+    // "release_date": null,
+    // "description": null
+  });
+
+  // fetch lock
+  const [isLoaded, setLoaded] = useState(false)
+
+  // fetch book data on load
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/books/' + bookId)
+    .then(response => response.json())
+    .then(data => {
+      setBook(data)
+      setLoaded(true)
+    });
+  }, []);  
   return (
-    
-      <div id="bookcard-container" style={{width: width, height: height}}>
-        <div id="options-container">
-          <div>
-            <img src={edit_icon} onClick={editBook} alt="edit_icon" id="icon" />
-          </div>
-          <div>
-            <img src={delete_icon} onClick={deleteBook} alt="delete_icon" id="icon" />
-          </div>
+    <div id="book-details-wrapper">
+        {isLoaded ?
+        <div id="book-details-container">
+          <h1 id="book-details-title">{book.title}</h1>
+          <h1 id="book-details-author">{book.author.first_name + " " + book.author.last_name}</h1>
+          <h1 id="book-details-date">{new Date(book.release_date).getFullYear()}</h1>
+          <hr id="hr"></hr>
+          <h1 id="book-details-description">{book.description}</h1>
         </div>
-          <div id="bookcard-bookmark" style={{backgroundColor: bookmarkColor}}></div>
-          <div id="bookcard-content">
-              <div id="bookcard-content-info">
-                  <h1 id="bookcard-title">{title}</h1>
-                  <h2 id="bookcard-author" style={{color: bookmarkColor}}>{author}</h2>
-                  <h3 id="bookcard-date">{date}</h3>
-                  <hr></hr>
-              </div>
-              <div id="bookcard-description">
-                {description}
-              </div>
-          </div>
-      </div>
+        : null
+      }
+      
+    </div>
   )
 }
 
-export default BookCard
+export default BookDetails

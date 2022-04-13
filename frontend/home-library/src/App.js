@@ -3,14 +3,16 @@ import './App.css';
 import BookCard from './components/BookCard';
 import FormWindow from './components/FormWindow';
 import Header from './components/Header'
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
+
 
 // // bookmark color palette
 const bookmarkPalette = ['#312F2F','#104547','#7798AB', '#9D6381', '#E2C044', '#0F110C','#BFEDC1'];
 // let randomColor = bookmarkPalette[~~(Math.random() * bookmarkPalette.length)];
 
 function App() {
- 
+  let {params} = useParams();
+  console.log('params: ' + params)
   // book data
   const [books, setBooks] = useState([]);
 
@@ -85,6 +87,7 @@ function App() {
     if (book_obj !== null && !editWindow){
       console.log(document.querySelector("#title"))
       // fill initial input values
+      console.log(book_obj.description)
       document.querySelector("#title").value = book_obj.title 
       document.querySelector("#release_date").value = book_obj.release_date
       document.querySelector("#first_name").value = book_obj.author.first_name
@@ -188,6 +191,7 @@ function App() {
 
   return (
     <>
+      <Outlet></Outlet>
       {addWindow == true ? <div id='overlay' onClick={toggleAddWindow}></div> : null}
       {addWindow == true ? <FormWindow display="grid" title="Add new entry" onClick={toggleAddWindow} submit={addBook}></FormWindow> : null}
 
@@ -198,13 +202,10 @@ function App() {
         <Header highlightColor='#9D6381' title={title} onClick={toggleAddWindow} onChange={handleChange.bind(this)}/>
         <div id="content">
           {books.filter(book => book.title.toLowerCase().includes(title.toLowerCase())).map((book) => (
-            <Link to={`/books/${book.id}`} key={book.id}>
               <BookCard editBook={() => toggleEditWindow(book)} deleteBook={() => deleteBook(book.id)} key={book.id} pk={book.id} title={book.title} author={book.author.first_name + ' ' + book.author.last_name} date={new Date(book.release_date).getFullYear()} description={book.description} bookmarkColor={book.color}></BookCard>
-            </Link> 
           ))}
         </div>
       </div>
-      <Outlet />
     </>
   );
 }
