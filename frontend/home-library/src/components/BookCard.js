@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const BookCard = ({height, editBook, deleteBook, pk, width, title, author, date, bookmarkColor, description}) => {
 
   return (
-    <Link to={`/details/${pk}`} key={pk}>
       <div id="bookcard-container" style={{width: width, height: height}}>
         <div id="options-container">
           <div>
@@ -28,8 +27,9 @@ const BookCard = ({height, editBook, deleteBook, pk, width, title, author, date,
                 {description}
               </div>
           </div>
+          <Link to={`/details/${pk}`} key={pk} style={{ gridArea: 'content' }}>
+          </Link>
       </div>
-    </Link>
   )
 }
 
