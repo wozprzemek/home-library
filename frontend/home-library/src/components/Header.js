@@ -2,12 +2,11 @@ import Button from './Button';
 import './Header.css';
 import { Link, Outlet } from "react-router-dom";
 
-const Header = ({highlightColor, title, onClick, onChange}) => {
-  // const [title, setTitle] = useState('');
+const Header = ({title, onClick, onChange}) => {
 
   return (
     <div id="container">
-        <Link to={`/books`}>
+        <Link to={`/`}>
           <h1 id="app-title"><i>Home Book Library</i></h1>
         </Link>
         <input id="search-bar" value = {title} onChange={onChange} name="title" placeholder='Filter by title'></input>

@@ -84,15 +84,13 @@ function App() {
   const toggleEditWindow = (book_obj) => {
     setEditWindow(!editWindow)
     setSelectedBook(book_obj)
-    if (book_obj !== null && !editWindow){
-      console.log(document.querySelector("#title"))
+    if (book_obj !== undefined && !editWindow){
       // fill initial input values
-      console.log(book_obj.description)
       document.querySelector("#title").value = book_obj.title 
       document.querySelector("#release_date").value = book_obj.release_date
       document.querySelector("#first_name").value = book_obj.author.first_name
       document.querySelector("#last_name").value = book_obj.author.last_name
-      document.querySelector("#description").value = book_obj.description
+      document.querySelector("textarea#description").value = book_obj.description
     }
   }
 

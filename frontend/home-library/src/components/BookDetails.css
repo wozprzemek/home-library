@@ -8,11 +8,7 @@
 }
 
 #book-details-wrapper {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: 100;
-    padding: 20vh 0;
+    padding: 100px 0px;
     font-family: 'Playfair Display';
     display: flex;
     justify-content: center;
@@ -48,4 +44,7 @@
 #book-details-description {
     font-size: 1.25em;
     font-weight: 200;
+    width: 500px;
+    max-width: 90vw;
+    text-align: justify;
 }
