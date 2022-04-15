@@ -6,6 +6,8 @@ A simple web application for managing a home book library.
 - backend layer: Django + DjangoRestFramework
 - database layer: PostgreSQL
 
+Backend and database layers are containerized using Docker Compose.
+
 ## Application functionalities
 - displaying a list of books (information about their: title, author, release date) represented as a set of tiles responsive to the window size
 - ability to delete and add new books
