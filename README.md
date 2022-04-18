@@ -16,6 +16,11 @@ Backend and database layers are containerized using Docker Compose.
 
 ## Running the application
 
+### Prerequisites
+
+- node.js (17.9.0 recommended)
+- Docker
+
 ### Running the backend
 
 Navigate to the /backend/ directory and use the following command to run the backend and connect to the database:
